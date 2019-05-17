@@ -1,0 +1,7 @@
+#!/bin/bash
+
+if(( $# == 1 )); then 
+	sort -k3 ./$1/visitors.txt | uniq -2 | sort -nrk2 | tail -n+1 | cut -d" " -f3 
+	else
+	sort -k3 ./$1/visitors.txt | uniq -2 | sort -nrk2 | head -n+$2 | cut -d" " -f3 
+fi

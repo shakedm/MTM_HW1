@@ -1,0 +1,9 @@
+#!/bin/bash
+
+ for (( i=3 ; i < 6 ; i++ )); do
+	rm -f tmpout
+	echo runing test$i
+		 visitor_for_room < ../SampleTests/SampleTests/test${i} > tmpout
+		diff ../SampleTests/SampleTests/test${i}.expout tmpout
+	done
+	

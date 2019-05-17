@@ -1,0 +1,15 @@
+#!/bin/bash
+
+i=0
+challenges=()
+names=(`last_visitors $1 | sort`)
+let namelen=${#names[*]}
+for (( i=0 ; i<$namelen ; i++ )); do
+	challenges[$i]=`visitor_challenges $1 ${names[$i]} $2 | cut -d" " -f2`
+	done
+for (( j=0 ; j < i ; j++ )); do
+	let win=`echo ${challenges[$j]} | grep -c "Winner"`
+	let lose=`echo ${challenges[$j]} | grep -c "Loser"`
+	let total=$win+$lose
+	echo ${names[$j]} $win $lose $total
+done | sort -snrk4 | cut -d" " -f1-3

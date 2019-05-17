@@ -1,0 +1,21 @@
+#!/bin/bash
+
+let x=1
+let len=`ls -l | wc -l`
+for visitor in $*; do
+if [[ $x -gt 1 ]]; then
+echo $visitor
+	for (( i=1 ; i <= len ; i++ )); do
+		file=`ls -l | cut -d" " -f10 | sort | head -$i | tail -1`
+		if [[ -d $file ]]; then
+			visitid=`visitor_for_room $file $visitor | cut -d" " -f2 | head -1`
+			if [[ $visitid -gt 0 ]]; then
+				challenges=`room_challenges $file $1 | grep -w $visitor | cut -d" " -f2,3`
+
+	echo "	$file: $challenges"
+	fi
+	fi
+	done
+	let x++
+	fi
+done

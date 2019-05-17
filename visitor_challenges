@@ -1,0 +1,17 @@
+#!/bin/bash
+
+list=`sort -nk2 ./$1/visitors.txt | grep -w $2 | cut  -d" " -f2`
+
+for visitid in $list; do
+	for file in ${1}/challenges/*.chg; do
+		FileVisitId=`cat $file | grep -w "visit id" | cut -d" " -f3`
+		OverallTime=`cat $file | grep -w "overall time" | cut -d" " -f3`
+		if (( $FileVisitId==$visitid )); then
+			if (( $OverallTime < $3 )); then
+				echo $visitid Winner
+			else
+				echo $visitid Loser
+			fi
+		fi
+	done
+done
